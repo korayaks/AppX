@@ -1,48 +1,41 @@
- import React from 'react';
- import type {Node} from 'react';
- import {
-   SafeAreaView,
-   ScrollView,
-   StatusBar,
-   StyleSheet,
-   Text,
-   useColorScheme,
-   View,
-   FlatList
- } from 'react-native';
- class App extends React.Component{
-   constructor()
-   {
-     super();
-     this.state ={
-       data:[]
-     }
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import Task from './components/Task';
+
+export default function App(){
+  return (
+    <View style={styles.container}>
+       
+      {/* Today's Tasks */}
+      <View style={styles.taskWrapper}>
+      <Text style={styles.sectionTitle}>Today's tasks</Text>
+
+      <View style = {styles.items}>
+        {/* This is where the tasks will go */}
+        <Task text={'task1'}/>
+        <Task text={'task2'}/>
+      </View>
+
+      </View>
+    </View>
+  )
+}
  
-   }
-   componentDidMount()
-   {
-     this.apiCall();
-   }
-   async apiCall()
-   {
-     let resp = await fetch('https://reactnative.dev/movies.json')
-     let respJson = await resp.json()
-     this.setState({data:respJson.movies})
-   }
- 
-   render(){
-     return(
-       <View>
-         <FlatList
-         data={this.state.data}
-         renderItem={({item})=>
-         <Text style={{fontSize:30,margin:15}}>{item.title},{item.releaseYear}</Text>
-       }
-         />
-       </View>
-     )
-   }
- }
- 
- export default App;
+const styles=StyleSheet.create({
+  container:{
+    flex: 1,
+    backgroundColor: '#E8EAED',
+  },
+  taskWrapper: {
+    paddingTop: 30,
+    paddingHorizontal: 20,
+ },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  items: {
+    marginTop:30,
+  }
+})
  
